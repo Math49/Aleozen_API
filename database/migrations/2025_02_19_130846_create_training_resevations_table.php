@@ -12,7 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('training_resevations', function (Blueprint $table) {
-            $table->id();
+            $table->id('reservation_id');
+            $table->string('first_name', 50);
+            $table->string('last_name', 50);
+            $table->string('email',50);
+            $table->integer('phone', 10)->unsigned()->nullable();
+            $table->string('application_file', 255);
+            $table->date('interview_date');
+            $table->string('status', 50)->default('pending');
+            $table->string('pay', 50);
+            $table->foreignId('training_id')->constrained('trainings');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
