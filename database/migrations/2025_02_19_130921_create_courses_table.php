@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('location', 255);
+            $table->date('start_date');
+            $table->decimal('price', 5, 2);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

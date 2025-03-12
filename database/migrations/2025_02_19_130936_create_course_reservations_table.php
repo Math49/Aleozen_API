@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('course_reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name', 50);
+            $table->string('last_name',50);
+            $table->string('email',100);
+            $table->string('phone',10);
+            $table->string('status',50);
+            $table->string('pay',50);
             $table->timestamps();
+            $table->foreignId('course_id')->constrained('courses');
         });
     }
 
