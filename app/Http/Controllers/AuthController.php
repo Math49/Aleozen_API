@@ -16,10 +16,19 @@ class AuthController extends Controller
     {
         try{
             $request->validate([
-                
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:users,email',
+                'phone' => 'required|string|max:255',
+                'password' => 'required|string|min:8|confirmed',
             ]);
             
             $user = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
             ]);
             
             return response()->json([
@@ -41,11 +50,11 @@ class AuthController extends Controller
         try{
 
             $request->validate([
-                'Name' => 'required|string',
-                'Password' => 'required|string',
+                'email' => 'required|email|max:255',
+                'password' => 'required|string|min:8',
             ]);
         
-            $user = User::where('Name', $request->Name)->first();
+            $user = User::where('email', $request->email)->first();
         
             if (!$user || !Hash::check($request->Password, $user->Password)) {
                 throw ValidationException::withMessages([
@@ -55,7 +64,13 @@ class AuthController extends Controller
         
             return response()->json([
                 'message' => 'Connexion réussie',
-                'user' => $user,
+                'user' => [
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                    'role' => $user->role,
+                ],
                 'token' => $user->createToken('auth-token')->plainTextToken
             ]);
 
