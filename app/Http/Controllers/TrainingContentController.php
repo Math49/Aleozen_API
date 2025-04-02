@@ -10,9 +10,9 @@ use Exception;
 class TrainingContentController extends Controller
 {
     /**
-     * URL:
+     * URL: /api/training-contents
      * Method: GET
-     * Description:
+     * Description: Get all training contents
      * Accepts: JSON
      */
     public function index(Request $request)
@@ -35,9 +35,9 @@ class TrainingContentController extends Controller
     }
 
     /**
-     * URL:
+     * URL: /api/training-contents
      * Method: POST
-     * Description:
+     * Description: Create a new training content
      * Accepts: JSON
      */
     public function store(Request $request)
@@ -68,9 +68,9 @@ class TrainingContentController extends Controller
     }
 
     /**
-     * URL:
+     * URL: /api/training-contents/{id}
      * Method: GET
-     * Description:
+     * Description: Get a specific training content by ID
      * Accepts: JSON
      */
     public function show(Request $request, $id)
@@ -93,9 +93,9 @@ class TrainingContentController extends Controller
     }
 
     /**
-     * URL:
+     * URL: /api/training-contents/{id}
      * Method: PUT
-     * Description:
+     * Description: Update a specific training content
      * Accepts: JSON
      */
     public function update(Request $request, $id)
@@ -127,9 +127,9 @@ class TrainingContentController extends Controller
     }
 
     /**
-     * URL:
+     * URL: /api/training-contents/
      * Method: DELETE
-     * Description:
+     * Description: Delete a specific training content
      * Accepts: JSON
      */
     public function destroy(Request $request)
