@@ -38,6 +38,7 @@ class CourseController extends Controller
             'description' => 'required|string',
             'location' => 'required|string|max:255',
             'start_date' => 'required|date',
+            'type' => 'required|string|max:50',
             'status' => 'required|string|max:255',
         ]);
 
@@ -46,6 +47,7 @@ class CourseController extends Controller
             'description' => $request->description,
             'location' => $request->location,
             'start_date' => $request->start_date,
+            'type' => $request->type,
             'status' => $request->status,
         ]);
 
@@ -82,6 +84,7 @@ class CourseController extends Controller
             'description' => 'sometimes|required|string',
             'location' => 'sometimes|required|string|max:255',
             'start_date' => 'sometimes|required|date',
+            'type' => 'sometimes|required|string|max:50',
             'status' => 'sometimes|required|string|max:255',
         ]);
 
@@ -92,6 +95,7 @@ class CourseController extends Controller
             'description' => $request->description ?? $course->description,
             'location' => $request->location ?? $course->location,
             'start_date' => $request->start_date ?? $course->start_date,
+            'type' => $request->type ?? $course->type,
             'status' => $request->status ?? $course->status,
         ]);
 

@@ -21,6 +21,7 @@ class TrainingFactory extends Factory
             'description' => $this->faker->paragraph(3),
             'location' => $this->faker->city,
             'start_date' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
+            'type' => $this->faker->randomElement(['online', 'offline']),
             'price' => $this->faker->numberBetween(100, 1000),
             'status' => $this->faker->randomElement(['upcoming', 'ongoing', 'completed']),
         ];

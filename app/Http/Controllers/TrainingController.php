@@ -39,6 +39,7 @@ class TrainingController extends Controller
                 'description' => 'nullable|string',
                 'location' => 'required|string|max:255',
                 'start_date' => 'required|date',
+                'type' => 'required|string|max:50',
                 'price' => 'required|numeric|min:0',
                 'status' => 'required|string|in:pending,completed,cancelled',
             ]);
@@ -48,6 +49,7 @@ class TrainingController extends Controller
                 'description' => $request->description,
                 'location' => $request->location,
                 'start_date' => $request->start_date,
+                'type' => $request->type,
                 'price' => $request->price,
                 'status' => $request->status,
             ]);
@@ -85,18 +87,20 @@ class TrainingController extends Controller
                 'description' => 'nullable|string',
                 'location' => 'required|string|max:255',
                 'start_date' => 'required|date',
+                'type' => 'required|string|max:50',
                 'price' => 'required|numeric|min:0',
                 'status' => 'required|string|in:pending,completed,cancelled',
             ]);
 
             $training = Training::findOrFail($id);
             $training->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'location' => $request->location,
-                'start_date' => $request->start_date,
-                'price' => $request->price,
-                'status' => $request->status,
+                'title' => $request->title ?? $training->title,
+                'description' => $request->description ?? $training->description,
+                'location' => $request->location ?? $training->location,
+                'start_date' => $request->start_date ?? $training->start_date,
+                'type' => $request->type ?? $training->type,
+                'price' => $request->price ?? $training->price,
+                'status' => $request->status ?? $training->status,
             ]);
 
             return response()->json($training, 200);

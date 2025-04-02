@@ -15,6 +15,7 @@ class Course extends Model
         'description',
         'location',
         'start_date',
+        'type',
         'status',        
     ];
 

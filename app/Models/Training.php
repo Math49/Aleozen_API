@@ -14,6 +14,7 @@ class Training extends Model
         'description',
         'location',
         'start_date',
+        'type',
         'price',
         'status',
     ];

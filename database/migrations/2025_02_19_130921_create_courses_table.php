@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('location', 255);
             $table->date('start_date');
+            $table->string('type', 50)->default('upcoming');
             $table->string('status', 50)->default('pending');
             $table->timestamps();
         });

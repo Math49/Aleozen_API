@@ -37,6 +37,7 @@ it('can create a course', function () {
         'title' => 'Laravel Masterclass',
         'description' => 'Un cours complet sur Laravel.',
         'location' => 'Paris',
+        'type' => 'online',
         'start_date' => now()->addWeek()->toDateString(),
         'status' => 'active',
     ];

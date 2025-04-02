@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('location', 255);
             $table->date('start_date');
+            $table->string('type', 50)->default('upcoming');
             $table->decimal('price', 10, 2);
             $table->string('status', 50)->default('pending');
             $table->timestamps();

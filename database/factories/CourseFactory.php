@@ -21,6 +21,7 @@ class CourseFactory extends Factory
             'description' => $this->faker->paragraph(2),
             'location' => $this->faker->city,
             'start_date' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
+            'type' => $this->faker->randomElement(['online', 'offline']),
             'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
     }

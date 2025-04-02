@@ -18,7 +18,7 @@ it('can list all trainings', function () {
 
     $response->assertOk()
              ->assertJsonStructure([
-                 '*' => ['training_id', 'title', 'description', 'location', 'start_date', 'price', 'status']
+                 '*' => ['training_id', 'title', 'description', 'location', 'start_date', 'type', 'price', 'status']
              ]);
 });
 
@@ -39,6 +39,7 @@ it('can create a training', function () {
         'description' => 'Formation pour devs frontend',
         'location' => 'Paris',
         'start_date' => now()->addDays(10)->toDateString(),
+        'type' => 'upcoming',
         'price' => 499.99,
         'status' => 'pending',
     ];
@@ -60,6 +61,7 @@ it('can update a training', function () {
         'description' => 'Nouvelle description',
         'location' => 'Lyon',
         'start_date' => now()->addDays(5)->toDateString(),
+        'type' => 'upcoming',
         'price' => 799,
         'status' => 'completed',
     ];
