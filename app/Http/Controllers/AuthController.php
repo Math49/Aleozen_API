@@ -6,15 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
-use Exception;
 
 class AuthController extends Controller
 {
-    // POST /register
+    /**
+     * URL: /api/register
+     * Method: POST
+     * Description: Register a new user
+     * Accepts: JSON
+     */
     public function register(Request $request)
     {
-        try{
             $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -29,6 +31,7 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'password' => Hash::make($request->password),
+                'role' => 'user',
             ]);
             
             return response()->json([
@@ -37,17 +40,15 @@ class AuthController extends Controller
                 'token' => $user->createToken('auth-token')->plainTextToken
             ], 201);
             
-        }catch(Exception $e){
-            return response()->json([
-                'message' => 'Erreur lors de la création de l\'utilisateur',
-                'error' => $e->getMessage()
-            ], 500);
-        }
     }
 
-    // POST /login
+    /**
+     * URL: /api/login
+     * Method: POST
+     * Description: Login a user
+     * Accepts: JSON
+     */
     public function login(Request $request){
-        try{
 
             $request->validate([
                 'email' => 'required|email|max:255',
@@ -56,7 +57,7 @@ class AuthController extends Controller
         
             $user = User::where('email', $request->email)->first();
         
-            if (!$user || !Hash::check($request->Password, $user->Password)) {
+            if (!$user || !Hash::check($request->password, $user->password)) {
                 throw ValidationException::withMessages([
                     'error' => ['Les informations de connexion sont incorrectes.'],
                 ]);
@@ -74,25 +75,19 @@ class AuthController extends Controller
                 'token' => $user->createToken('auth-token')->plainTextToken
             ]);
 
-        }catch(Exception $e){
-            return response()->json([
-                'message' => 'Erreur lors de la connexion',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        
     }
 
-    // POST /logout
+    /**
+     * URL: /api/logout
+     * Method: POST
+     * Description: Logout a user
+     * Accepts: JSON
+     */
     public function logout(Request $request){
-        try{
             $request->user()->tokens()->delete();
             return response()->json(['message' => 'Déconnexion réussie']);
-        }catch(Exception $e){
-            return response()->json([
-                'message' => 'Erreur lors de la déconnexion',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+       
     }
 
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Exception;
 use App\Models\User;
 
 class UserController extends Controller
@@ -17,23 +16,16 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        try{
-            $users = User::all();
+        $users = User::all();
 
-            foreach ($users as $user) {
-                $user->password = null;
-            }
-            
-            if ($request->accepts('application/json')) {
-                return response()->json($users, 200);
-            } else {
-                return response()->json(['error' => 'Unsupported format'], 406);
-            }
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la récupération des utilisateurs',
-                'error' => $e->getMessage()
-            ], 500);
+        foreach ($users as $user) {
+            $user->password = null;
+        }
+
+        if ($request->accepts('application/json')) {
+            return response()->json($users, 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
         }
     }
 
@@ -45,34 +37,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:users,email',
-                'phone' => 'required|string|max:10',
-                'password' => 'required|string|min:8|confirmed',
-            ]);
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string|max:10',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
-            $user = User::create([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => bcrypt($request->password),
-                'role' => $request->role ?? 'user',
-            ]);
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password),
+            'role' => $request->role ?? 'user',
+        ]);
 
-            $user->password = null;
+        $user->password = null;
 
-            return response()->json($user, 201);
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la création de l\'utilisateur',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json($user, 201);
     }
 
     /**
@@ -83,21 +67,13 @@ class UserController extends Controller
      */
     public function show(Request $request, $id)
     {
-        try{
-            $user = User::findOrFail($id);
-            $user->password = null;
-            
-            if ($request->accepts('application/json')) {
-                return response()->json($user, 200);
-            } else {
-                return response()->json(['error' => 'Unsupported format'], 406);
-            }
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la récupération de l\'utilisateur',
-                'error' => $e->getMessage()
-            ], 500);
+        $user = User::findOrFail($id);
+        $user->password = null;
+
+        if ($request->accepts('application/json')) {
+            return response()->json($user, 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
         }
     }
 
@@ -109,34 +85,27 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:users,email,' . $id,
-                'phone' => 'required|string|max:10',
-                'password' => 'nullable|string|min:8|confirmed',
-            ]);
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $id . ',user_id',
+            'phone' => 'required|string|max:10',
+            'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'nullable|string|in:user,admin',
+        ]);
 
-            $user = User::findOrFail($id);
-            $user->update([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'password' => $request->password ? bcrypt($request->password) : $user->password,
-                'role' => $request->role ?? $user->role,
-            ]);
-            $user->password = null;
+        $user = User::findOrFail($id);
+        $user->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'role' => $request->role ?? $user->role,
+        ]);
+        $user->password = null;
 
-            return response()->json($user, 200);
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la mise à jour de l\'utilisateur',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json($user, 200);
     }
 
     /**
@@ -147,21 +116,13 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        try{
-            $request->validate([
-                'user_id' => 'required|exists:users,user_id',
-            ]);
+        $request->validate([
+            'user_id' => 'required|exists:users,user_id',
+        ]);
 
-            $user = User::findOrFail($request->user_id);
-            $user->delete();
+        $user = User::findOrFail($request->user_id);
+        $user->delete();
 
-            return response()->json(['message' => 'User deleted successfully'], 200);
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la suppression de l\'utilisateur',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json(['message' => 'User deleted successfully'], 200);
     }
 }

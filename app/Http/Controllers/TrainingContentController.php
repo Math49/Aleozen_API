@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\TrainingContent;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Exception;
 
 class TrainingContentController extends Controller
 {
@@ -17,20 +16,12 @@ class TrainingContentController extends Controller
      */
     public function index(Request $request)
     {
-        try{
-            $trainingContents = TrainingContent::all()->load('training.trainingReservations');
-            
-            if ($request->accepts('application/json')) {
-                return response()->json($trainingContents, 200);
-            } else {
-                return response()->json(['error' => 'Unsupported format'], 406);
-            }
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la récupération des contenus de formation',
-                'error' => $e->getMessage()
-            ], 500);
+        $trainingContents = TrainingContent::all()->load('training.trainingReservations');
+
+        if ($request->accepts('application/json')) {
+            return response()->json($trainingContents, 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
         }
     }
 
@@ -42,29 +33,21 @@ class TrainingContentController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string',
-                'files' => 'required|file|mimes:pdf,doc,docx|max:2048',
-                'training_id' => 'required|exists:trainings,id',
-            ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'files' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'training_id' => 'required|exists:trainings,training_id',
+        ]);
 
-            $trainingContent = TrainingContent::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'files' => $request->file('files')->store('training_contents'),
-                'training_id' => $request->training_id,
-            ]);
+        $trainingContent = TrainingContent::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'files' => $request->file('files')->store('training_contents'),
+            'training_id' => $request->training_id,
+        ]);
 
-            return response()->json($trainingContent, 201);
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la création du contenu de formation',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json($trainingContent, 201);
     }
 
     /**
@@ -75,20 +58,12 @@ class TrainingContentController extends Controller
      */
     public function show(Request $request, $id)
     {
-        try{
-            $trainingContent = TrainingContent::findOrFail($id)->load('training.trainingReservations');
-            
-            if ($request->accepts('application/json')) {
-                return response()->json($trainingContent, 200);
-            } else {
-                return response()->json(['error' => 'Unsupported format'], 406);
-            }
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la récupération du contenu de formation',
-                'error' => $e->getMessage()
-            ], 500);
+        $trainingContent = TrainingContent::findOrFail($id)->load('training.trainingReservations');
+
+        if ($request->accepts('application/json')) {
+            return response()->json($trainingContent, 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
         }
     }
 
@@ -100,30 +75,20 @@ class TrainingContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string',
-                'files' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-                'training_id' => 'required|exists:trainings,id',
-            ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'files' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+        ]);
 
-            $trainingContent = TrainingContent::findOrFail($id);
-            $trainingContent->update([
-                'name' => $request->name ?? $trainingContent->name,
-                'description' => $request->description ?? $trainingContent->description,
-                'files' => $request->file('files') ? $request->file('files')->store('training_contents') : $trainingContent->files,
-                'training_id' => $request->training_id ?? $trainingContent->training_id,
-            ]);
+        $trainingContent = TrainingContent::findOrFail($id);
+        $trainingContent->update([
+            'name' => $request->name ?? $trainingContent->name,
+            'description' => $request->description ?? $trainingContent->description,
+            'files' => $request->file('files') ? $request->file('files')->store('training_contents') : $trainingContent->files,
+        ]);
 
-            return response()->json($trainingContent, 200);
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la mise à jour du contenu de formation',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json($trainingContent, 200);
     }
 
     /**
@@ -134,21 +99,13 @@ class TrainingContentController extends Controller
      */
     public function destroy(Request $request)
     {
-        try{
-            $request->validate([
-                'id' => 'required|exists:training_contents,id',
-            ]);
+        $request->validate([
+            'content_id' => 'required|exists:training_contents,content_id',
+        ]);
 
-            $trainingContent = TrainingContent::findOrFail($request->id);
-            $trainingContent->delete();
+        $trainingContent = TrainingContent::findOrFail($request->content_id);
+        $trainingContent->delete();
 
-            return response()->json(['message' => 'Training content deleted successfully'], 200);
-        }
-        catch (Exception $e) {
-            return response()->json([
-                'message' => 'Erreur lors de la suppression du contenu de formation',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json(['message' => 'Training content deleted successfully'], 200);
     }
 }

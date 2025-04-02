@@ -19,9 +19,11 @@ class Training extends Model
     ];
 
     public function trainingReservations(){
-        return $this->hasMany(TrainingReservation::class);
+        return $this->hasMany(TrainingReservation::class, 'training_id', 'training_id');
     }
-    public function trainingContents(){
-        return $this->hasMany(TrainingContent::class);
+    public function trainingContents()
+    {
+        return $this->hasMany(TrainingContent::class, 'training_id', 'training_id');
     }
+
 }

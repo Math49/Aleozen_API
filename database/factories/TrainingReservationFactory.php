@@ -27,8 +27,8 @@ class TrainingReservationFactory extends Factory
             'interview_date' => $this->faker->dateTimeBetween('+1 week', '+2 weeks'),
             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
             'pay' => $this->faker->randomFloat(2, 100, 1000),
-            'training_id' => Training::factory()->create()->id,
-            'user_id' => User::factory()->create()->id,
+            'training_id' => Training::factory()->create()->training_id,
+            'user_id' => User::factory()->create()->user_id,
         ];
     }
 

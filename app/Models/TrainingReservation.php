@@ -31,8 +31,9 @@ class TrainingReservation extends Model
     {
         return $this->hasMany(TrainingReservation::class);
     }
-    public function trainings()
+    public function training()
     {
-        return $this->belongsTo(Training::class);
+        return $this->belongsTo(Training::class, 'training_id');
     }
+
 }

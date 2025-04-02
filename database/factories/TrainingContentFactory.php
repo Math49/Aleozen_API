@@ -21,7 +21,7 @@ class TrainingContentFactory extends Factory
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
             'files' => $this->faker->filePath(),
-            'training_id' => Training::factory()->create()->id,
+            'training_id' => Training::factory()->create()->training_id,
         ];
     }
 

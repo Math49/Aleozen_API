@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('course_reservations', function (Blueprint $table) {
-            $table->id();
+            $table->id("reservation_id");
             $table->string('first_name', 50);
             $table->string('last_name',50);
             $table->string('email',100);
             $table->string('phone',10);
             $table->string('status',50);
             $table->timestamps();
-            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('course_id')->references('course_id')->on('courses');
         });
     }
 

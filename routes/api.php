@@ -8,8 +8,17 @@ use App\Http\Controllers\TrainingContentController;
 use App\Http\Controllers\InterventionReservationController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseReservationController;
+use App\Http\Controllers\AuthController;
+
+
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    
+    // Auth routes
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/register', [AuthController::class, 'register']);
+
     // User routes
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users', [UserController::class, 'store']);

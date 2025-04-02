@@ -23,7 +23,7 @@ class CourseReservationFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->numerify('06########'),
             'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']),
-            'course_id' => Course::factory()->create()->id,
+            'course_id' => Course::factory()->create()->course_id,
         ];
     }
 

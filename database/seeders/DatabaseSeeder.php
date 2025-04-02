@@ -20,24 +20,24 @@ class DatabaseSeeder extends Seeder
         Training::factory(5)->create()->each(function ($training) use ($users) {
             // Pour chaque training, on crée 3 contenus
             TrainingContent::factory(3)->create([
-                'training_id' => $training->id,
+                'training_id' => $training->training_id,
             ]);
             
-
+            
             // Et 5 réservations associées à des utilisateurs aléatoires
             foreach (range(1, 5) as $_) {
                 $randomUser = $users->random();
                 TrainingReservation::factory()
-                    ->withTraining($training->id)
-                    ->withUser($randomUser->id)
-                    ->create();
+                ->withTraining($training->training_id)
+                ->withUser($randomUser->user_id)
+                ->create();
             }
         });
-
+        
         // Création de 5 cours
         Course::factory(5)->create()->each(function ($course) {
             // Chaque cours reçoit 3 réservations
-            CourseReservation::factory(3)->withCourse($course->id)->create();
+            CourseReservation::factory(3)->withCourse($course->course_id)->create();
         });
 
         // Création de 10 réservations d'intervention

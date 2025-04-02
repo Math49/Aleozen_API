@@ -19,10 +19,6 @@ class TrainingContent extends Model
 
     public function training()
     {
-        return $this->belongsTo(Training::class);
-    }
-    public function trainingReservation()
-    {
-        return $this->hasMany(TrainingReservation::class);
+        return $this->belongsTo(Training::class, 'training_id');
     }
 }
