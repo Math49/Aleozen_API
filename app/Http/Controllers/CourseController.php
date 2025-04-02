@@ -45,13 +45,13 @@ class CourseController extends Controller
             $request->validate([
                 'location' => 'required|string|max:255',
                 'start_date' => 'required|date',
-                'price' => 'required|numeric',
+                'status' => 'required|string|max:255',
             ]);
 
             $course = Course::create([
                 'location' => $request->location,
                 'start_date' => $request->start_date,
-                'price' => $request->price,
+                'status' => $request->status,
             ]);
 
             return response()->json($course, 201);
@@ -103,7 +103,7 @@ class CourseController extends Controller
             $request->validate([
                 'location' => 'sometimes|required|string|max:255',
                 'start_date' => 'sometimes|required|date',
-                'price' => 'sometimes|required|numeric',
+                'status' => 'sometimes|required|string|max:255',
             ]);
 
             $course = Course::find($id);
@@ -115,9 +115,8 @@ class CourseController extends Controller
             $course->update([
                 'location' => $request->location ?? $course->location,
                 'start_date' => $request->start_date ?? $course->start_date,
-                'price' => $request->price ?? $course->price,
+                'status' => $request->status ?? $course->status,
             ]);
-
 
             return response()->json($course, 200);
         } catch (Exception $e) {
