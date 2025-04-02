@@ -19,4 +19,8 @@ class TrainingContent extends Model
     {
         return $this->belongsTo(Training::class);
     }
+    public function trainingReservation()
+    {
+        return $this->hasMany(TrainingReservation::class);
+    }
 }

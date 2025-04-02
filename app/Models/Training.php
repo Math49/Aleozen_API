@@ -16,10 +16,10 @@ class Training extends Model
         'status',
     ];
 
-    public function training(){
-        return $this->hasMany(Training::class);
-    }
     public function trainingReservations(){
         return $this->hasMany(TrainingReservation::class);
+    }
+    public function trainingContents(){
+        return $this->hasMany(TrainingContent::class);
     }
 }
