@@ -7,15 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class CourseReservation extends Model
 {
     protected $table = "course_reservations";
-    protected $fillable = ["first_name","last_name","email","phone","status","pay"];
+    protected $primaryKey = 'reservation_id';
+    protected $fillable = ["first_name","last_name","email","phone","status", "course_id"];
 
-    public function reservations()
+    
+    public function courses()
     {
-        return $this->hasMany(CourseReservation::class);
-    }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Course::class);
     }
     public function course()
     {

@@ -11,12 +11,9 @@ class Training extends Model
         'location',
         'start_date',
         'price',
-        'user_id',
+        'status',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
     public function training(){
         return $this->hasMany(Training::class);
     }

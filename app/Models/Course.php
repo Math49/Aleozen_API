@@ -11,17 +11,11 @@ class Course extends Model
     protected $fillable = [
         'location',
         'start_date',
-        'price',
-        'user_id',
+        'status',        
     ];
 
-    public function courses()
+    public function reservations()
     {
-        return $this->hasMany(Course::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(CourseReservation::class, 'course_id', 'course_id');
     }
 }

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('trainings', function (Blueprint $table) {
             $table->id('training_id');
             $table->string('location', 255);
-            $table->date('strat_date');
+            $table->date('start_date');
             $table->decimal('price', 10, 2);
+            $table->string('status', 50)->default('pending');
             $table->timestamps();
-            $table->foreign('user_id')->references('user_id')->on('users');
         });
     }
 

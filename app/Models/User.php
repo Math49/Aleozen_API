@@ -35,13 +35,10 @@ class User extends Authenticatable
         ];
     }
 
-    public function trainings(){
-        return $this->hasMany(Training::class);
-    }
     public function training_reservations(){
         return $this->hasMany(TrainingReservation::class);
     }
-    public function courses(){
-        return $this->hasMany(Course::class);
+    public function course_reservations(){
+        return $this->hasMany(CourseReservation::class);
     }
 }

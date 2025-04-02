@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('phone',10);
             $table->string('status',50);
-            $table->string('pay',50);
             $table->timestamps();
             $table->foreignId('course_id')->constrained('courses');
         });

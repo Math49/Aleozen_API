@@ -13,7 +13,9 @@ class InterventionReservation extends Model
         'last_name',
         'email',
         'phone',
+        'intervention_date',
+        'type',
+        'description',
         'status',
-        'pay',
     ];
 }
