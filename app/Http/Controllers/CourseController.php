@@ -141,12 +141,7 @@ class CourseController extends Controller
             $request->validate([
                 'id' => 'required|integer|exists:courses,course_id',
             ]);
-            $course = Course::find($request->id);
-
-            if (!$course) {
-                return response()->json(['error' => 'Course not found'], 404);
-            }
-
+            $course = Course::findOrFail($request->id);
             $course->delete();
 
             return response()->json(['message' => 'Course deleted successfully'], 200);

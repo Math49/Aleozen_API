@@ -155,11 +155,6 @@ class InterventionReservationController extends Controller
             ]);
 
             $interventionReservation = InterventionReservation::findOrFail($request->id);
-
-            if (!$interventionReservation) {
-                return response()->json(['error' => 'Réservation d\'intervention introuvable'], 404);
-            }
-
             $interventionReservation->delete();
 
             return response()->json(['message' => 'Réservation d\'intervention supprimée avec succès'], 200);

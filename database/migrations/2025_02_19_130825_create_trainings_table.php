@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->id('training_id');
+            $table->string('title', 255);
+            $table->text('description')->nullable();
             $table->string('location', 255);
             $table->date('start_date');
             $table->decimal('price', 10, 2);

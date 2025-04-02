@@ -148,11 +148,6 @@ class CourseReservationController extends Controller
             ]);
 
             $courseReservation = CourseReservation::findOrFail($request->id);
-
-            if(!$courseReservation) {
-                return response()->json(['error' => 'Course reservation not found'], 404);
-            }
-
             $courseReservation->delete();
 
             return response()->json(['message' => 'Réservation de stage supprimée avec succès'], 200);
