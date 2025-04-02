@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 255);
+            $table->text('description');
             $table->string('location', 255);
             $table->date('start_date');
             $table->string('status', 50)->default('pending');

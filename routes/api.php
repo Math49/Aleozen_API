@@ -5,9 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TrainingReservationController;
 use App\Http\Controllers\TrainingContentController;
+use App\Http\Controllers\InterventionReservationController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseReservationController;
-use App\Http\Controllers\InterventionReservationController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     // User routes

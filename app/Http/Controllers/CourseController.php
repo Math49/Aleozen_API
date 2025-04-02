@@ -43,12 +43,16 @@ class CourseController extends Controller
     {
         try {
             $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
                 'location' => 'required|string|max:255',
                 'start_date' => 'required|date',
                 'status' => 'required|string|max:255',
             ]);
 
             $course = Course::create([
+                'title' => $request->title,
+                'description' => $request->description,
                 'location' => $request->location,
                 'start_date' => $request->start_date,
                 'status' => $request->status,
@@ -102,6 +106,8 @@ class CourseController extends Controller
     {
         try {
             $request->validate([
+                'title' => 'sometimes|required|string|max:255',
+                'description' => 'sometimes|required|string',
                 'location' => 'sometimes|required|string|max:255',
                 'start_date' => 'sometimes|required|date',
                 'status' => 'sometimes|required|string|max:255',
@@ -114,6 +120,8 @@ class CourseController extends Controller
             }
 
             $course->update([
+                'title' => $request->title ?? $course->title,
+                'description' => $request->description ?? $course->description,
                 'location' => $request->location ?? $course->location,
                 'start_date' => $request->start_date ?? $course->start_date,
                 'status' => $request->status ?? $course->status,

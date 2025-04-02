@@ -8,7 +8,18 @@ class TrainingReservation extends Model
 {
     protected $table = "training_reservations";
     protected $primaryKey = 'reservation_id';
-    protected $fillable = ['first_name','last_name','email','phone','application_file','interview_date','status','pay','training_id', 'user_id'];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'email',
+        'phone',
+        'application_file',
+        'interview_date',
+        'status',
+        'pay',
+        'training_id',
+        'user_id'
+    ];
 
     public function user()
     {
