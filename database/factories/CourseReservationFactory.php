@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Course;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CourseReservation>
@@ -20,9 +21,9 @@ class CourseReservationFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
+            'phone' => $this->faker->numerify('06########'),
             'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']),
-            'course_id' => 0,
+            'course_id' => Course::factory()->create()->id,
         ];
     }
 

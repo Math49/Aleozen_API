@@ -20,7 +20,7 @@ class InterventionReservationFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->phoneNumber,
+            'phone' => $this->faker->numerify('06########'),
             'intervention_date' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
             'type' => $this->faker->randomElement(['type1', 'type2', 'type3']),
             'description' => $this->faker->paragraph(2),

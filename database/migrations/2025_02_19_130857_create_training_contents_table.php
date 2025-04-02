@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->text('description');
             $table->string('files', 255);
-            $table->foreign('training_id')->references('training_id')->on('trainings');
+            $table->foreignId('training_id')->references('training_id')->on('trainings');
             $table->timestamps();
         });
     }

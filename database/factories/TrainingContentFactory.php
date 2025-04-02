@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Training;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TrainingContent>
@@ -20,7 +21,7 @@ class TrainingContentFactory extends Factory
             'name' => $this->faker->word(),
             'description' => $this->faker->sentence(),
             'files' => $this->faker->filePath(),
-            'training_id' => 0,
+            'training_id' => Training::factory()->create()->id,
         ];
     }
 

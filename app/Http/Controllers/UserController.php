@@ -50,7 +50,7 @@ class UserController extends Controller
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique:users,email',
-                'phone' => 'required|string|max:255',
+                'phone' => 'required|string|max:10',
                 'password' => 'required|string|min:8|confirmed',
             ]);
 
@@ -114,7 +114,7 @@ class UserController extends Controller
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'email' => 'required|email|max:255|unique:users,email,' . $id,
-                'phone' => 'required|string|max:255',
+                'phone' => 'required|string|max:10',
                 'password' => 'nullable|string|min:8|confirmed',
             ]);
 

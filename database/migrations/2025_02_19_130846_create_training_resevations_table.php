@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('first_name', 50);
             $table->string('last_name', 50);
             $table->string('email',50);
-            $table->integer('phone', 10)->unsigned()->nullable();
+            $table->string('phone', 10)->nullable();
             $table->string('application_file', 255);
             $table->date('interview_date');
             $table->string('status', 50)->default('pending');
             $table->string('pay', 50);
-            $table->foreignId('training_id')->constrained('trainings');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('training_id')->references('training_id')->on('trainings');
+            $table->foreignId('user_id')->references('user_id')->on('users');
             $table->timestamps();
         });
     }
