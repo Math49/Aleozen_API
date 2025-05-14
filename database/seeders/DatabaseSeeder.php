@@ -16,6 +16,15 @@ class DatabaseSeeder extends Seeder
         // Création de 10 utilisateurs
         $users = User::factory(10)->create();
 
+        User::factory(1)->create([
+            'first_name' => 'admin',
+            'last_name' => 'admin',
+            'email' => 'test@test.fr',
+            'phone' => '0606060606',
+            'password' => 'password',
+            'role' => 'user',
+        ]);
+
         // Création de 5 formations
         Training::factory(5)->create()->each(function ($training) use ($users) {
             // Pour chaque training, on crée 3 contenus

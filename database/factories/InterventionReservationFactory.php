@@ -24,7 +24,7 @@ class InterventionReservationFactory extends Factory
             'intervention_date' => $this->faker->dateTimeBetween('+1 week', '+1 month'),
             'type' => $this->faker->randomElement(['type1', 'type2', 'type3']),
             'description' => $this->faker->paragraph(2),
-            'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']),
+            'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
         ];
     }
 }

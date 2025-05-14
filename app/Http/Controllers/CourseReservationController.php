@@ -73,6 +73,26 @@ class CourseReservationController extends Controller
     }
 
     /**
+     * URL: /api/course/{id}/course-reservations-approved
+     * Method: GET
+     * Description: Get the number of approved course reservations for a specific course
+     * Accepts: JSON
+     */
+    public function number(Request $request, $id)
+    {
+        $course = Course::findOrFail($id);
+        $approvedReservationsCount = CourseReservation::where('course_id', $id)
+            ->where('status', 'approved')
+            ->count();
+
+        if ($request->accepts('application/json')) {
+            return response()->json($approvedReservationsCount, 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
+        }
+    }
+
+    /**
      * URL: /api/course-reservations/{id}
      * Method: PUT/PATCH
      * Description: Update a specific course reservation by ID

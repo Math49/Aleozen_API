@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TrainingReservation;
+use App\Models\Training;
 
 class TrainingReservationController extends Controller
 {
@@ -63,6 +64,26 @@ class TrainingReservationController extends Controller
     }
 
     /**
+     * URL: /api/training/{id}/training-reservations-approved
+     * Method: GET
+     * Description: Get the number of approved course reservations for a specific course
+     * Accepts: JSON
+     */
+    public function number(Request $request, $id)
+    {
+        $training = Training::findOrFail($id);
+        $approvedReservationsCount = TrainingReservation::where('training_id', $id)
+            ->where('status', 'approved')
+            ->count();
+
+        if ($request->accepts('application/json')) {
+            return response()->json($approvedReservationsCount, 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
+        }
+    }
+
+    /**
      * URL: /api/training-reservations/{id}
      * Method: GET
      * Description: Get a specific training reservation
@@ -93,7 +114,7 @@ class TrainingReservationController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:255',
             'interview_date' => 'nullable|date',
-            'status' => 'required|string|in:pending,confirmed,cancelled',
+            'status' => 'required|string',
             'pay' => 'nullable|string',
         ]);
 

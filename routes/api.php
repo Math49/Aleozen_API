@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/training-reservations/{id}', [TrainingReservationController::class, 'show']);
     Route::put('/training-reservations/{id}', [TrainingReservationController::class, 'update']);
     Route::delete('/training-reservations', [TrainingReservationController::class, 'destroy']);
+    Route::get('/training/{id}/training-reservations-approved', [TrainingReservationController::class, 'number']);
 
     // Training Content routes
     Route::get('/training-contents', [TrainingContentController::class, 'index']);
@@ -60,6 +61,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/course-reservations/{id}', [CourseReservationController::class, 'show']);
     Route::put('/course-reservations/{id}', [CourseReservationController::class, 'update']);
     Route::delete('/course-reservations', [CourseReservationController::class, 'destroy']);
+    Route::get('/course/{id}/course-reservations-approved', [CourseReservationController::class, 'number']);
 
     // Intervention Reservation routes
     Route::get('/intervention-reservations', [InterventionReservationController::class, 'index']);
