@@ -126,15 +126,15 @@ class CourseReservationController extends Controller
      * Description: Delete a specific course reservation by ID
      * Accepts: JSON
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $request->validate([
-            'reservation_id' => 'required|integer|exists:course_reservations,reservation_id',
-        ]);
-
-        $courseReservation = CourseReservation::findOrFail($request->reservation_id);
+        $courseReservation = CourseReservation::findOrFail($id);
         $courseReservation->delete();
 
-        return response()->json(['message' => 'Réservation de stage supprimée avec succès'], 200);
+        if ($request->accepts('application/json')) {
+            return response()->json(['message' => 'Course reservation deleted successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
+        }
     }
 }

@@ -115,15 +115,15 @@ class InterventionReservationController extends Controller
      * Description: Delete a specific intervention reservation by ID
      * Accepts: JSON
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $request->validate([
-            'reservation_id' => 'required|integer|exists:intervention_reservations,reservation_id',
-        ]);
-
-        $interventionReservation = InterventionReservation::findOrFail($request->reservation_id);
+        $interventionReservation = InterventionReservation::findOrFail($id);
         $interventionReservation->delete();
 
-        return response()->json(['message' => 'Réservation d\'intervention supprimée avec succès'], 200);
+        if ($request->accepts('application/json')) {
+            return response()->json(['message' => 'Intervention reservation deleted successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
+        }
     }
 }

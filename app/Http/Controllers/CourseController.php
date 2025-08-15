@@ -38,8 +38,8 @@ class CourseController extends Controller
             'description' => 'required|string',
             'location' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'type' => 'required|string|max:50',
-            'status' => 'required|string|max:255',
+            'type' => 'required|string|in:taichi,qigong',
+            'status' => 'required|string|in:draft,published,archived',
         ]);
 
         $course = Course::create([
@@ -80,12 +80,12 @@ class CourseController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'location' => 'sometimes|required|string|max:255',
-            'start_date' => 'sometimes|required|date',
-            'type' => 'sometimes|required|string|max:50',
-            'status' => 'sometimes|required|string|max:255',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'type' => 'required|string|in:taichi,qigong',
+            'status' => 'required|string|in:draft,published,archived',
         ]);
 
         $course = Course::findOrFail($id);

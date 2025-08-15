@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/training-reservations', [TrainingReservationController::class, 'store']);
     Route::get('/training-reservations/{id}', [TrainingReservationController::class, 'show']);
     Route::put('/training-reservations/{id}', [TrainingReservationController::class, 'update']);
-    Route::delete('/training-reservations', [TrainingReservationController::class, 'destroy']);
+    Route::delete('/training-reservations/{id}', [TrainingReservationController::class, 'destroy']);
     Route::get('/training/{id}/training-reservations-approved', [TrainingReservationController::class, 'number']);
 
     // Training Content routes
@@ -60,7 +60,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/course-reservations', [CourseReservationController::class, 'store']);
     Route::get('/course-reservations/{id}', [CourseReservationController::class, 'show']);
     Route::put('/course-reservations/{id}', [CourseReservationController::class, 'update']);
-    Route::delete('/course-reservations', [CourseReservationController::class, 'destroy']);
+    Route::delete('/course-reservations/{id}', [CourseReservationController::class, 'destroy']);
     Route::get('/course/{id}/course-reservations-approved', [CourseReservationController::class, 'number']);
 
     // Intervention Reservation routes
@@ -68,6 +68,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/intervention-reservations', [InterventionReservationController::class, 'store']);
     Route::get('/intervention-reservations/{id}', [InterventionReservationController::class, 'show']);
     Route::put('/intervention-reservations/{id}', [InterventionReservationController::class, 'update']);
-    Route::delete('/intervention-reservations', [InterventionReservationController::class, 'destroy']);
+    Route::delete('/intervention-reservations/{id}', [InterventionReservationController::class, 'destroy']);
 });
 

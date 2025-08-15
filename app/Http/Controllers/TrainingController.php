@@ -39,9 +39,9 @@ class TrainingController extends Controller
                 'description' => 'nullable|string',
                 'location' => 'required|string|max:255',
                 'start_date' => 'required|date',
-                'type' => 'required|string|max:50',
-                'price' => 'required|numeric|min:0',
-                'status' => 'required|string|in:pending,completed,cancelled',
+                'type' => 'required|string|in:taichi,qigong',
+                'price' => 'nullable|numeric|min:0',
+                'status' => 'required|string|in:draft,published,archived',
             ]);
 
             $training = Training::create([
@@ -87,9 +87,9 @@ class TrainingController extends Controller
                 'description' => 'nullable|string',
                 'location' => 'required|string|max:255',
                 'start_date' => 'required|date',
-                'type' => 'required|string|max:50',
-                'price' => 'required|numeric|min:0',
-                'status' => 'required|string|in:pending,completed,cancelled',
+                'type' => 'required|string|in:taichi,qigong',
+                'price' => 'nullable|numeric|min:0',
+                'status' => 'required|string|in:draft,published,archived',
             ]);
 
             $training = Training::findOrFail($id);

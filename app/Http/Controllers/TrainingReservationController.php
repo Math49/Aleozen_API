@@ -133,20 +133,20 @@ class TrainingReservationController extends Controller
     }
 
     /**
-     * URL: /api/training-reservations/
+     * URL: /api/training-reservations/{id}
      * Method: DELETE
      * Description: Delete a specific training reservation
      * Accepts: JSON
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $request->validate([
-            'reservation_id' => 'required|integer|exists:training_reservations,reservation_id',
-        ]);
-
-        $trainingReservation = TrainingReservation::findOrFail($request->reservation_id);
+        $trainingReservation = TrainingReservation::findOrFail($id);
         $trainingReservation->delete();
 
-        return response()->json(['message' => 'Réservation de formation supprimée avec succès'], 200);
+        if ($request->accepts('application/json')) {
+            return response()->json(['message' => 'Course reservation deleted successfully'], 200);
+        } else {
+            return response()->json(['error' => 'Unsupported format'], 406);
+        }
     }
 }
